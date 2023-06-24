@@ -58,6 +58,13 @@ check going:
 
 volume definitions
 
+definition: a room (called rm) is black-available:
+	if rm is not adjacent to lbk, no;
+	if rm is adjacent to lwk, no;
+	if rm is lsb-reachable, no;
+	if rm is dsb-reachable, no;
+	yes;
+
 to decide which room is lwk: decide on location of white king;
 to decide which room is lbk: decide on location of black king;
 
@@ -91,17 +98,33 @@ definition: a room (called sq) is king-reachable:
 	if number of people in sq > 0, no;
 	yes;
 
+[this code can be conglomerated. a room(x) and a piece(y) are bishop-reachable...]
+
 definition: a room (called sq) is lsb-reachable:
 	let x0 be xval of sq;
 	let y0 be yval of sq;
-	unless (x0 - y0) is (lsbx - lsby) or (x0 - y0) is (lsby - lsbx), no;
+	if sq is location of white light squared bishop, no;
+	unless (lsbx - x0) is (lsby - y0) or (lsbx - x0) is (y0 - lsby), no;
 	let mydiag be todir of llsb and sq;
+	let thisrm be the room mydiag of ldsb;
+	while thisrm is not sq:
+		if thisrm is nothing, no;
+		if white king is in thisrm, no;
+		now thisrm is the room mydiag of thisrm;
+	yes;
 
 definition: a room (called sq) is dsb-reachable:
 	let x0 be xval of sq;
 	let y0 be yval of sq;
-	unless (x0 - y0) is (dsbx - dsby) or (x0 - y0) is (dsby - dsbx), no;
+	if sq is location of white dark squared bishop, no;
+	unless (dsbx - x0) is (dsby - y0) or (dsbx - x0) is (y0 - dsby), no;
 	let mydiag be todir of ldsb and sq;
+	let thisrm be the room mydiag of ldsb;
+	while thisrm is not sq:
+		if thisrm is nothing, no;
+		if white king is in thisrm, no;
+		now thisrm is the room mydiag of thisrm;
+	yes;
 
 volume parser stuff
 
@@ -113,4 +136,15 @@ rule for printing a parser error (this is the general info error rule):
 	the rule succeeds;
 
 this is the print-legal-moves rule:
-	say "move to [list of king-reachable rooms], move your light-squared bishop to [list of lsb-reachable rooms], or move your dark-squared bishop to [list of dsb-reachable rooms].";
+	say "move to [list of king-reachable rooms]";
+	let temp be list of lsb-reachable rooms;
+	if number of entries in temp is 0:
+		say ". You can't move your light-squared bishop.";
+	else:
+		say ". Your light-squared bishop can move to [list of lsb-reachable rooms]";
+	let temp be list of dsb-reachable rooms;
+	if number of entries in temp is 0:
+		say ". You can't move your dark-squared bishop.";
+	else:
+		say ". Your dark-squared bishop can move to [list of dsb-reachable rooms]";
+	say ".";
