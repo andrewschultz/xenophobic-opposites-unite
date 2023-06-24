@@ -24,6 +24,8 @@ chapter starting off
 
 the player is in e1.
 
+the description of e1 is "[if sent-yet is false]Conference time![else if screenread is true][text-board-description].[else][grid-printout][run paragraph on][end if]";
+
 when play begins:
 	move white light squared bishop to h1;
 	move white dark squared bishop to a1;
@@ -37,6 +39,46 @@ when play begins:
 	if debug-state is false, ask-screenread;
 
 chapter game specific stuff
+
+sent-yet is a truth state that varies.
+
+rule for printing the locale description when sent-yet is false (this is the recap start choice rule):
+	say "You need to deal with your two bishops who dislike each other. But how? You have some opportunity to marshal your forces, but you're not sure what would be best.";
+	say "[line break] 1. You! To your corners! A1 and H1[one of]! The farther apart, the better! Further, whatever. We're at war here. Grammar be hanged[or][stopping]!";
+	say " 2. You're too powerful to be sent to the corners, so B1 and G1 it is! But next time I'll be harsher!";
+	say " 3. You will go back to your original squares on C1 and F1, and you will go back to your original squares now!";
+	say " 4. Okay, team. We're a team, and we stick together. You two, in front of me at e2 and d2.";
+	say " 5. Think about what to do.";
+
+numguessing is an action applying to one number.
+
+understand "[number]" as numguessing when sent-yet is false.
+
+carry out numguessing:
+	if the number understood < 0 and the number understood > 5:
+		say "You need to choose 1-5 or 0 to recap your choices." instead;
+	if the number understood is 5:
+		say "You remember something vague from all your tactical training. The bishops need to get in close around the enemy king, then you need to push him into the corner. So what's the best way to zigzag across the board efficiently?";
+		continue the action;
+	if the number understood is 0:
+		follow the recap start choice rule instead;
+	if the number understood is 1:
+		move white light squared bishop to h1;
+		move white dark squared bishop to a1;
+	if the number understood is 2:
+		move white light squared bishop to b1;
+		move white dark squared bishop to g1;
+	if the number understood is 3:
+		move white light squared bishop to f1;
+		move white dark squared bishop to c1;
+	if the number understood is 4:
+		move white light squared bishop to e2;
+		move white dark squared bishop to d2;
+	say "The bishops trudge off to [if xval of llsb < 5][llsb] and [ldsb][else][ldsb] and [llsb][end if].";
+	now sent-yet is true;
+	move the player to e1;
+	if screenread is false:
+		say "[i][b]NOTE[r][i]: the game defaults to showing a text board, but you may wish to put the board in the header. You can do this with [b]HDR ##[r][i], where ## is a number from 1 to 32.[close bracket][r]"
 
 to say text-board-description:
 	say "Here at [location of player], you can see your light-squared bishop at [llsb] and your dark-squared bishop at [ldsb]. The enemy king skulks at [location of black king]"
@@ -151,6 +193,10 @@ directed-piece is a number that varies.
 
 after reading a command:
 	now directed-piece is 0;
+	if sent-yet is false:
+		unless the player's command matches the regular expression "^<0-9>+$":
+			say "You need to enter 1-5.";
+			reject the player's command;
 	if the player's command matches the regular expression "<bk><a-z><0-9>":
 		if character number 1 in the player's command is "k":
 			now directed-piece is 1;
