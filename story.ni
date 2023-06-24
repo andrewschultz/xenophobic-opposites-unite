@@ -17,8 +17,8 @@ include Chess Four Bishops by Andrew Schultz.
 the player is in e1;
 
 when play begins:
-	move white light squared bishop to a1;
-	move white dark squared bishop to h1;
+	move white light squared bishop to h1;
+	move white dark squared bishop to a1;
 	now black king is in e8;
 	process the check-skip-intro rule;
 	if the rule succeeded, continue the action;
@@ -30,20 +30,18 @@ when play begins:
 
 chapter game specific stuff
 
-bishopmoving is an action applying to one visible thing.
-
 to say text-board-description:
 	say "Here at [location of player], you can see your light-squared bishop at [llsb] and your dark-squared bishop at [ldsb]. The enemy king skulks at [location of black king]"
 
 after going:
 	abide by the check-mates rule;
 
-after bishopmoving:
+after piecemoving:
 	abide by the check-mates rule;
 
 this is the check-mates rule:
 	if number of black-available rooms is 0:
-		if lbk is dsb-reachable:
+		if lbk is dsb-reachable or lbk is lsb-reachable:
 			say "Checkmate!";
 			end the story;
 		say "Stalemate! Ouch!";
@@ -52,7 +50,6 @@ this is the check-mates rule:
 	let currm be location of player;
 	let top-priority be -1;
 	repeat with rm running through black-available rooms:
-		say "candidate [rm] priority = [priority of rm].";
 		if number of people in rm is 1:
 			say "The black king laughs as he walks up to [rm] and takes out [the random person in rm]. How did you miss that one?";
 			end the story;
@@ -206,7 +203,7 @@ definition: a room (called sq) is lsb-reachable:
 	if sq is location of white light squared bishop, no;
 	unless (lsbx - x0) is (lsby - y0) or (lsbx - x0) is (y0 - lsby), no;
 	let mydiag be todir of llsb and sq;
-	let thisrm be the room mydiag of ldsb;
+	let thisrm be the room mydiag of llsb;
 	while thisrm is not sq:
 		if thisrm is nothing, no;
 		if white king is in thisrm, no;
