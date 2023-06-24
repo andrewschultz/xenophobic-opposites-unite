@@ -35,6 +35,36 @@ bishopmoving is an action applying to one visible thing.
 to say text-board-description:
 	say "Here at [location of player], you can see your light-squared bishop at [llsb] and your dark-squared bishop at [ldsb]. The enemy king skulks at [location of black king]"
 
+after going:
+	abide by the check-mates rule;
+
+after bishopmoving:
+	abide by the check-mates rule;
+
+this is the check-mates rule:
+	if number of black-available rooms is 0:
+		if lbk is dsb-reachable:
+			say "Checkmate!";
+			end the story;
+		say "Stalemate! Ouch!";
+		end the story;
+		the rule succeeds;
+	let currm be location of player;
+	let top-priority be -1;
+	repeat with rm running through black-available rooms:
+		say "candidate [rm] priority = [priority of rm].";
+		if number of people in rm is 1:
+			say "The black king laughs as he walks up to [rm] and takes out [the random person in rm]. How did you miss that one?";
+			end the story;
+			the rule succeeds;
+		if priority of rm > top-priority:
+			now currm is rm;
+			now top-priority is priority of rm;
+	say "The black king moves to [currm].";
+	move black king to currm;
+	try looking;
+	the rule succeeds;
+
 a room has a number called priority.
 
 when play begins:
