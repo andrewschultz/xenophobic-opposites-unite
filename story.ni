@@ -6,6 +6,10 @@ include Old School Verb Total Carnage by Andrew Schultz.
 
 include Trivial Niceties by Andrew Schultz.
 
+include Bold Final Question Rows by Andrew Schultz.
+
+include Intro Restore Skip by Andrew Schultz.
+
 include Chessboard Rendering Utilities by Andrew Schultz.
 
 include Chess Four Bishops by Andrew Schultz.
@@ -16,11 +20,36 @@ when play begins:
 	move white light squared bishop to a1;
 	move white dark squared bishop to h1;
 	now black king is in e8;
+	process the check-skip-intro rule;
+	if the rule succeeded, continue the action;
+
+when play begins:
+	now use-custom-screenread is true;
+	say "[this-game] renders a chessboard in text maps for room descriptions. This will play very poorly with screen readers. In addition, you may prefer a text description to a chessboard as a matter of taste. Do you wish to activate text/screenreader mode?";
+	if debug-state is false, ask-screenread;
 
 chapter game specific stuff
 
+bishopmoving is an action applying to one visible thing.
+
 to say text-board-description:
 	say "Here at [location of player], you can see your light-squared bishop at [llsb] and your dark-squared bishop at [ldsb]. The enemy king skulks at [location of black king]"
+
+a room has a number called priority.
+
+when play begins:
+	repeat with rm running through rooms:
+		let xdelta be 9 - (2 * xval of rm);
+		if xdelta < 0, now xdelta is 0 - xdelta;
+		let ydelta be 9 - (2 * yval of rm);
+		if ydelta < 0, now ydelta is 0 - ydelta;
+		now xdelta is 7 - xdelta;
+		now ydelta is 7 - ydelta;
+		if xdelta < ydelta:
+			let temp be xdelta;
+			now xdelta is ydelta;
+			now ydelta is temp;
+		now priority of rm is (10 * ydelta) + xdelta;
 
 volume moving rules
 
