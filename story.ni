@@ -86,6 +86,24 @@ volume moving rules
 check going:
 	if the room gone to is adjacent to location of black king, say "Oops! Don't want to get too near the black king." instead;
 
+volume parser nonsense
+
+directed-piece is a number that varies.
+
+after reading a command:
+	now directed-piece is 0;
+	if the player's command matches the regular expression "<bk><a-z><0-9>":
+		if character number 1 in the player's command is "k":
+			now directed-piece is 1;
+		else if character number 1 in the player's command is "b":
+			now directed-piece is 2;
+		strip-algebraic-front-letter;
+
+rule for printing a parser error:
+	if the player's command matches the regular expression "<a-z><0-9>":
+		say "It looks like you tried to jump off the board. No fleeing, pal!";
+		the rule succeeds;
+
 volume definitions
 
 definition: a room (called rm) is black-available:
