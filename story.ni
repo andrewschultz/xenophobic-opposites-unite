@@ -1,6 +1,8 @@
 "Xenophobic Opposites, Unite!" by Andrew Schultz
 
-volume heading stuff
+volume big picture stuff
+
+chapter headings
 
 include Old School Verb Total Carnage by Andrew Schultz.
 
@@ -14,7 +16,13 @@ include Chessboard Rendering Utilities by Andrew Schultz.
 
 include Chess Four Bishops by Andrew Schultz.
 
-the player is in e1;
+section testing - not for release
+
+include Xenophobic Opposites Unite Tests by Andrew Schultz.
+
+chapter starting off
+
+the player is in e1.
 
 when play begins:
 	move white light squared bishop to h1;
@@ -32,6 +40,8 @@ chapter game specific stuff
 
 to say text-board-description:
 	say "Here at [location of player], you can see your light-squared bishop at [llsb] and your dark-squared bishop at [ldsb]. The enemy king skulks at [location of black king]"
+
+volume verbs and rules
 
 after going:
 	abide by the check-mates rule;
