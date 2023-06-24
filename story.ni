@@ -81,6 +81,58 @@ when play begins:
 			now ydelta is temp;
 		now priority of rm is (10 * ydelta) + xdelta;
 
+volume verbs and stuff
+
+piecemoving is an action applying to one visible thing.
+
+understand "[any room]" as piecemoving.
+
+check piecemoving:
+	if directed-piece is 1:
+		if noun is not king-reachable:
+			say "That's not a legal square to move to." instead;
+		continue the action;
+	if directed-piece is 2:
+		if noun is white:
+			if noun is not lsb-reachable:
+				say "Your light-squared bishop cannot move to that square." instead;
+		else:
+			if noun is not dsb-reachable:
+				say "Your light-squared bishop cannot move to that square." instead;
+		continue the action;
+	if noun is king-reachable:
+		say "(No piece given, assuming the king since it's legal)";
+		now directed-piece is 1;
+		continue the action;
+	if noun is lsb-reachable:
+		say "(light-squared bishop)";
+		now directed-piece is 2;
+		continue the action;
+	if noun is dsb-reachable:
+		say "(dark-squared bishop)";
+		now directed-piece is 2;
+		continue the action;
+	say "Unfortunately, I couldn't detect what you wanted to move to [noun]." instead;
+
+to decide whether (rm - a room) is black:
+	if remainder after dividing (xval of rm + yval of rm) by 2 is 0, yes;
+	no;
+
+to decide whether (rm - a room) is white:
+	if rm is black, no;
+	yes;
+
+carry out piecemoving:
+	if directed-piece is 1:
+		move player to noun;
+	else if directed-piece is 2:
+		if noun is black:
+			move white dark squared bishop to noun;
+		else:
+			move white light squared bishop to noun;
+	else:
+		say "A bad error here in the fallthrough code. Preface the square with K or B. Sorry about that." instead;
+
 volume moving rules
 
 check going:
