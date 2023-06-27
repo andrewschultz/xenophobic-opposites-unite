@@ -12,6 +12,8 @@ include Bold Final Question Rows by Andrew Schultz.
 
 include Intro Restore Skip by Andrew Schultz.
 
+include Full Chessboard Utilities by Andrew Schultz.
+
 include Chessboard Rendering Utilities by Andrew Schultz.
 
 include Chess Four Bishops by Andrew Schultz.
@@ -26,11 +28,17 @@ the player is in e1.
 
 the description of e1 is "[if sent-yet is false]Conference time![else if screenread is true][text-board-description].[else][grid-printout][run paragraph on][end if]";
 
+moves-left is a number that varies. moves-left is 50.
+
+check requesting the score:
+	say "You have [moves-left] move[if moves-left > 1]s[end if] before the fifty-move rule kicks in. You think you're close. You hope you're close. At the end, there is only winning and not winning.";
+
 when play begins:
 	move white light squared bishop to h1;
 	move white dark squared bishop to a1;
 	now black king is in e8;
 	process the check-skip-intro rule;
+	now right hand status line is "[moves-left] moves to go";
 	if the rule succeeded, continue the action;
 
 when play begins:
@@ -112,6 +120,10 @@ this is the check-mates rule:
 	say "The black king moves to [currm].";
 	move black king to currm;
 	try looking;
+	decrement moves-left;
+	if moves-left is 0:
+		say "Oh no! You fell foul of the 50-move rule! It seems like a silly tradition. You thought you were getting somewhere. Apparently the rule is there so wars don't get interminable, but really, maybe interminable wars where people don't get killed aren't so bad.[paragraph break]Well, back to ruling your kingdom, though your status must surely be weakened.[paragraph break]Sure enough, the two bishops you couldn't get to work together to defeat the enemy depose you for your second-cousin six months later. Ugh, an overambitious chap who couldn't even trap the enemy king with his Queen! Fortunately, your almost-victory in the war gained you enough sympathizers you are able to live out your life in a remote village with a decent stipend.";
+		end the story saying "The Enemy Survived";
 	the rule succeeds;
 
 a room has a number called priority.
