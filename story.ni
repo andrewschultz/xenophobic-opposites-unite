@@ -100,6 +100,7 @@ after piecemoving:
 	abide by the check-mates rule;
 
 this is the check-mates rule:
+	consider the check-bishops-together rule;
 	if number of black-available rooms is 0:
 		if lbk is dsb-reachable or lbk is lsb-reachable:
 			say "The enemy king rages. 'You?! I didn't think you were so smart! Well, if you were REALLY smart, and you'd focused on bigger-picture battle strategies, you'd have beaten me long before.'[paragraph break]What a sore loser! Unfortunately, you can't kill him then and there on the spot.[paragraph break]The citizens of the conquered country are even more in awe of your strategical prowess than if you'd just blown the enemy army away. You know things! You see details! You are not to be messed with.[paragraph break]That said, you're not big on making people knuckle under to you. Your experience figuring out the checkmate with two bishops has made you more thoughtful and considerate of abstract problems. You become a better ruler than you thought you could be.";
@@ -199,6 +200,40 @@ volume moving rules
 
 check going:
 	if the room gone to is adjacent to location of black king, say "Oops! Don't want to get too near the black king." instead;
+
+volume standard verbs
+
+the block thinking rule is not listed in any rulebook.
+
+think-warn is a truth state that varies.
+
+check thinking:
+	if think-warn is false:
+		say "Oh, man! You remember so much from those military strategy books you had forced on you. All the special cases that probably would never happen, but each instructor assured you THEIR special case would not only be more likely to happen in the coming years, BUT it would be more applicable generally! You feel guilty for slacking now.[paragraph break][i][bracket]Okay, this was a flake-out/warning aggainst immediate spoilers. Real hints will appear the next time.[close bracket][paragraph break]Note also it's possible to get through [this-game] without triggering the first hint, but if you do, you really, really know what you're doing.";
+		now think-warn is true;
+		the rule succeeds;
+	if bishops-together is false:
+		say "As much as your bishops hate each other, they work quite well when side-by-side. The enemy king cannot approach them, and he is stuck in a triangle! So that is a good start." instead;
+
+bishops-together is a truth state that varies.
+
+this is the check-bishops-together rule:
+	if bishops-together is true, continue the action;
+	if difference-hash of white light squared bishop and white dark squared bishop is 10:
+		say "Your two bishops don't feel great together, but hey, you're the one giving the orders here. The enemy king looks a bit afraid of them.";
+		now bishops-together is true;
+		continue the action;
+
+to decide which number is difference-hash of (p1 - a person) and (p2 - a person):
+	let dx be (xval of location of p1) - (xval of location of p2);
+	let dy be (yval of location of p1) - (yval of location of p2);
+	if dy < 0, now dy is 0 - dy;
+	if dx < 0, now dx is 0 - dx;
+	if dx < dy:
+		let temp be dx;
+		let dx be dy;
+		let dy be temp;
+	decide on dy + 10 * dx;
 
 volume parser nonsense
 
