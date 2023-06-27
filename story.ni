@@ -86,7 +86,7 @@ carry out numguessing:
 	now sent-yet is true;
 	move the player to e1;
 	if screenread is false:
-		say "[i][b]NOTE[r][i]: the game defaults to showing a text board, but you may wish to put the board in the header. You can do this with [b]HDR ##[r][i], where ## is a number from 1 to 32.[close bracket][r]"
+		say "[i][b]NOTE[r][i]: the game defaults to showing a text board, but you may wish to put the board in the header. You can do this with [b]HDR ##[r][i], where ## is a number from 1 to 32. [b]HDR 0[r][i] gives all the details, but I recommend [b]HDR 24[r][i].[close bracket][r]"
 
 to say text-board-description:
 	say "Here at [location of player], you can see your light-squared bishop at [llsb] and your dark-squared bishop at [ldsb]. The enemy king skulks at [location of black king]"
@@ -102,17 +102,18 @@ after piecemoving:
 this is the check-mates rule:
 	if number of black-available rooms is 0:
 		if lbk is dsb-reachable or lbk is lsb-reachable:
-			say "Checkmate!";
-			end the story;
-		say "Stalemate! Ouch!";
-		end the story;
+			say "The enemy king rages. 'You?! I didn't think you were so smart! Well, if you were REALLY smart, and you'd focused on bigger-picture battle strategies, you'd have beaten me long before.'[paragraph break]What a sore loser! Unfortunately, you can't kill him then and there on the spot.[paragraph break]The citizens of the conquered country are even more in awe of your strategical prowess than if you'd just blown the enemy army away. You know things! You see details! You are not to be messed with.[paragraph break]That said, you're not big on making people knuckle under to you. Your experience figuring out the checkmate with two bishops has made you more thoughtful and considerate of abstract problems. You become a better ruler than you thought you could be.";
+			end the story saying "Checkmate";
+			the rule succeeds;
+		say "The enemy king looks around, panicked. 'No!' he cries. 'It can't end this way!' Then ... 'Aha! Yes! It won't! I'm not being attacked! You've trapped me, but you weren't attacking me when you did!'[paragraph break]It's an obscure rule, of course, but one you have to respect.[paragraph break]Your own rule at home is slightly weakened by this, but you're popular enough to explain that you really just lost the war on a technicality, and enough people survived, and hey, it wasn't the common people's castles or wives that got lost in the war, so you feel their pain and then some. It works. But there could've been more.";
+		end the story saying "Stalemate";
 		the rule succeeds;
 	let currm be location of player;
 	let top-priority be -1;
 	repeat with rm running through black-available rooms:
 		if number of people in rm is 1:
-			say "The black king laughs as he walks up to [rm] and takes out [the random person in rm]. How did you miss that one?";
-			end the story;
+			say "The black king laughs as he walks up to [rm] and takes out [the random person in rm]. How did you miss that one?[paragraph break]The only bright side is that the two bishops, wily as they are, won't dethrone you. Their seconds-in-command aren't bold enough, yet.";
+			end the story saying "Catastrophic deadlock";
 			the rule succeeds;
 		if priority of rm > top-priority:
 			now currm is rm;
@@ -216,10 +217,13 @@ after reading a command:
 			now directed-piece is 2;
 		strip-algebraic-front-letter;
 
-rule for printing a parser error:
+the off the board parser error rule is listed first in for printing a parser error.
+
+rule for printing a parser error (this is the off the board parser error rule):
 	if the player's command matches the regular expression "<a-z><0-9>":
 		say "It looks like you tried to jump off the board. No fleeing, pal!";
 		the rule succeeds;
+	continue the action;
 
 volume definitions
 
