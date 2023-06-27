@@ -220,6 +220,9 @@ bishops-together is a truth state that varies.
 this is the check-bishops-together rule:
 	if bishops-together is true, continue the action;
 	if difference-hash of white light squared bishop and white dark squared bishop is 10:
+		if bishop-vulnerable:
+			say "Your two bishops don't feel great together, but hey, you're the one giving the orders here. The enemy king smiles a bit, as if he sees a weakness.";
+			continue the action;
 		say "Your two bishops don't feel great together, but hey, you're the one giving the orders here. The enemy king looks a bit afraid of them.";
 		now bishops-together is true;
 		continue the action;
@@ -234,6 +237,30 @@ to decide which number is difference-hash of (p1 - a person) and (p2 - a person)
 		let dx be dy;
 		let dy be temp;
 	decide on dy + 10 * dx;
+
+a room can be checked or unchecked. a room is usually checked.
+
+to decide whether bishop-vulnerable:
+	now all rooms are unchecked;
+	if attacks-bishop of location of black king, yes;
+	no;
+
+to decide whether attacks-bishop of (rm - a room):
+	say "Checking [rm].";
+	if rm is llsb or rm is ldsb, yes;
+	now rm is checked;
+	repeat with q running through directions:
+		let qrm be the room q of rm;
+		if qrm is nothing, next;
+		if qrm is checked, next;
+		if qrm is lsb-reachable or qrm is dsb-reachable:
+			now qrm is checked;
+			next;
+		if attacks-bishop of qrm, yes;
+	no;
+
+every turn:
+	if bishop-vulnerable, say "The enemy king can capture a bishop.";
 
 volume parser nonsense
 
