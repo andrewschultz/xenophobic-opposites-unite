@@ -12,6 +12,14 @@ test win3 with "3/f4/g2/e4/ne/ne/n/n/nw/w/c7/f6/c6/d6/g6/d7/e6/e5".
 
 test win4 with "4/ne/nw/n/c3/b4/c4/f4/d6/d5/e7/kg5/f8/f6/kf7/g7/f5".
 
+test draw with "w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e/w/e".
+
+test oops1 with "bf6/be7".
+
+test oops2 with "1/e5/d5/ne/n/n/n/e6/kf6/kf5/kf4".
+
+test b8 with "1/e5/d5/nw/nw/n/n/n/bd6/be6/bf7/be7/kb6/be6/bd8/bc8/ca6/ba6/bf1/bb5/be6/be7/ba6/bb7/bd6".
+
 Xenophobic Opposites Unite Tests ends here.
 
 ---- DOCUMENTATION ----
