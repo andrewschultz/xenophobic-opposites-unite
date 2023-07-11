@@ -188,10 +188,19 @@ this is the check-mates rule:
 	move black king to currm;
 	try looking;
 	decrement moves-left;
+	repeat through table of move-checks:
+		if moves-left is my-moves entry, say "[bishop-blather entry][line break]";
 	if moves-left is 0:
-		say "Oh no! You fell foul of the 50-move rule! It seems like a silly tradition. You thought you were getting somewhere. Apparently the rule is there so wars don't get interminable, but really, maybe interminable wars where people don't get killed aren't so bad.[paragraph break]Well, back to ruling your kingdom, though your status must surely be weakened.[paragraph break]Sure enough, the two bishops you couldn't get to work together to defeat the enemy depose you for your second-cousin six months later. Ugh, an overambitious chap who couldn't even trap the enemy king with his Queen! Fortunately, your almost-victory in the war gained you enough sympathizers you are able to live out your life in a remote village with a decent stipend.";
 		end the story saying "The Enemy Survived";
 	the rule succeeds;
+
+table of move-checks
+my-moves	bishop-blather
+0	"Oh no! You fell foul of the 50-move rule! It seems like a silly tradition. You thought you were getting somewhere. Apparently the rule is there so wars don't get interminable, but really, maybe interminable wars where people don't get killed aren't so bad.[paragraph break]Well, back to ruling your kingdom, though your status must surely be weakened.[paragraph break]Sure enough, the two bishops you couldn't get to work together to defeat the enemy depose you for your second-cousin six months later. Ugh, an overambitious chap who couldn't even trap the enemy king with his Queen! Fortunately, your almost-victory in the war gained you enough sympathizers you are able to live out your life in a remote village with a decent stipend."
+10	"The two bishops show the most camaraderie they've shown yet, mumbling and wondering if you really have the gumption and battle knowledge to close the deal here. They'd have organized things better, for sure."
+20	"The two bishops now look very agitated. They wonder if you are ever going to get around to putting the enemy king away. Rough crowd, man."
+30	"The two bishops start to look impatient. They roll their eyes. You catch them shrugging at each other, as if to say 'What can you do?' Harsh, man."
+40	"The two bishos drum their fingers against their opposite forearms. It's really too soon for that. You're still organizing how best to snare the black king."
 
 a room has a number called priority.
 
