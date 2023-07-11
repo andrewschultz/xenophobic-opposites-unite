@@ -184,6 +184,9 @@ this is the check-mates rule:
 		if priority of rm > top-priority:
 			now currm is rm;
 			now top-priority is priority of rm;
+	if black-king-check:
+		if not worthwhile-check:
+			say "Your bishops eye you warily. Of course, they will need to give check eventually to checkmate. But perhaps if you do so too soon, the king may slip out. They know well about having power over others. You don't show them all at once. You put them in a corner, make them think they're safe, then--pow![paragraph break]";
 	say "The black king moves to [currm].";
 	move black king to currm;
 	try looking;
@@ -201,6 +204,16 @@ my-moves	bishop-blather
 20	"The two bishops now look very agitated. They wonder if you are ever going to get around to putting the enemy king away. Rough crowd, man."
 30	"The two bishops start to look impatient. They roll their eyes. You catch them shrugging at each other, as if to say 'What can you do?' Harsh, man."
 40	"The two bishos drum their fingers against their opposite forearms. It's really too soon for that. You're still organizing how best to snare the black king."
+
+to decide whether worthwhile-check:
+	if number of king-reachable rooms is not 1, no;
+	let rm be a random king-reachable room;
+	if priority of rm is priority of lbk - 1, no;
+	yes;
+
+to decide whether black-king-check:
+	if lbk is lsb-reachable or lbk is dsb-reachable, yes;
+	no;
 
 a room has a number called priority.
 
