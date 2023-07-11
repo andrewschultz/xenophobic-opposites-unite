@@ -2,6 +2,18 @@
 
 volume big picture stuff
 
+the story headline is "The end of a long, brutal war".
+
+the story description is "A text-adventure implementation of a semi-tricky chess endgame".
+
+the release number is 1.
+
+release along with the "Parchment" interpreter.
+
+release along with a website.
+
+release along with cover art.
+
 chapter headings
 
 include Old School Verb Total Carnage by Andrew Schultz.
