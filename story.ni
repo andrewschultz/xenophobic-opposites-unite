@@ -296,6 +296,8 @@ the block thinking rule is not listed in any rulebook.
 
 think-warn is a truth state that varies.
 
+ever-think-near is a truth state that varies.
+
 check thinking:
 	if think-warn is false:
 		say "Oh, man! You remember so much from those military strategy books you had forced on you. All the special cases that probably would never happen, but each instructor assured you THEIR special case would not only be more likely to happen in the coming years, BUT it would be more applicable generally! You feel guilty for slacking now.[paragraph break][i][bracket]Okay, this was a flake-out/warning aggainst immediate spoilers. Real hints will appear the next time.[close bracket][paragraph break]Note also it's possible to get through [this-game] without triggering the first hint, but if you do, you really, really know what you're doing.";
@@ -303,6 +305,11 @@ check thinking:
 		the rule succeeds;
 	if bishops-together is false:
 		say "As much as your bishops hate each other, they work quite well when side-by-side. The enemy king cannot approach them, and he is stuck in a triangle! So that is a good start." instead;
+	if ever-think-near is false:
+		now ever-think-near is true;
+		say "[line break][i][bracket][b]THINK[r][i]ing in the future will give you hints that I hope help without spoiling things.[close bracket][r]" instead;
+	say "[one of]With the king on the edge, you need to push it into the corner. Your bishops can't do it all themselves[or]If you are on one side of the bishops, the other one can shepherd the enemy king over to where you keep it against the edge[or]You note a bishop can lose a move and force the enemy king to move away from it. Then the bishop can move to one square from the edge, pushing the king to the corner[or]The king needs to be pushed from, say, f8 to g8 to h8. That means a bishop needs to guard e8, and another checks on f8. Then two more checks, with you-the-king on g6. The hints will now cycle[cycling].";
+	the rule succeeds;
 
 bishops-together is a truth state that varies.
 
