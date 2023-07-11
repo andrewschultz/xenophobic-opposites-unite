@@ -38,7 +38,13 @@ chapter starting off
 
 the player is in e1.
 
-the description of e1 is "[if sent-yet is false]Conference time![else if screenread is true][text-board-description].[else][grid-printout][run paragraph on][end if]";
+to say that-bishop: say "He is giving a sidelong glance to [if item described is white light squared bishop]the black light squared bishop[else]the white light squared bishop[end if]. His robes are dusty and bloodied from a long fight. You wonder what their theological differences really are. It's a bit beyond you. You have a country to run"
+
+description of white light squared bishop is "[that-bishop]."
+
+description of white dark squared bishop is "[that-bishop]."
+
+the description of e1 is "[if sent-yet is false]The pep talk stopped your two bishops grumbling for the most part. But you still haven't quite made it clear who's boss.[else if screenread is true][text-board-description].[else][grid-printout][run paragraph on][end if]";
 
 moves-left is a number that varies. moves-left is 50.
 
