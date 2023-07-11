@@ -465,6 +465,8 @@ directed-piece is a number that varies.
 after reading a command:
 	now directed-piece is 0;
 	if sent-yet is false:
+		if word number 1 in the player's command is "test":
+			continue the action;
 		unless the player's command matches the regular expression "^<0-9>+$":
 			say "You need to enter 1-4 to choose one of the starting positions above, or 5 to reflect some more.";
 			reject the player's command;
