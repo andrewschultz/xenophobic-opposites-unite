@@ -62,6 +62,8 @@ moves-left is a number that varies. moves-left is 50.
 
 check requesting the score:
 	say "You have [moves-left] move[if moves-left > 1]s[end if] before the fifty-move rule kicks in. You think you're close. You hope you're close. At the end, there is only winning and not winning.";
+	if min-king-range is 64, continue the action;
+	say "[line break]The fewest number of squares you've restricted the enemy king to is [min-king-range]. You're pretty sure you want it to be two, so he isn't stalemated, and you can predict where he'll go next.";
 
 when play begins:
 	move white light squared bishop to h1;
@@ -305,11 +307,38 @@ check thinking:
 		the rule succeeds;
 	if bishops-together is false:
 		say "As much as your bishops hate each other, they work quite well when side-by-side. The enemy king cannot approach them, and he is stuck in a triangle! So that is a good start." instead;
+	if ever-min-king-range is false and min-king-range > 2:
+		say "You got your bishops together, but you still need to cut the king's range down." instead;
+	say "You organized your bishops so the enemy king could only shuffle back and forth. You know the final blow would be inevitable afterwards. But the last bit is so tricky to figure out. Perhaps you can work backwards from what the final position should be.";
 	if ever-think-near is false:
 		now ever-think-near is true;
 		say "[line break][i][bracket][b]THINK[r][i]ing in the future will give you hints that I hope help without spoiling things.[close bracket][r]" instead;
 	say "[one of]With the king on the edge, you need to push it into the corner. Your bishops can't do it all themselves[or]If you are on one side of the bishops, the other one can shepherd the enemy king over to where you keep it against the edge[or]You note a bishop can lose a move and force the enemy king to move away from it. Then the bishop can move to one square from the edge, pushing the king to the corner[or]The king needs to be pushed from, say, f8 to g8 to h8. That means a bishop needs to guard e8, and another checks on f8. Then two more checks, with you-the-king on g6. The hints will now cycle[cycling].";
 	the rule succeeds;
+
+ever-min-king-range is a truth state that varies.
+
+min-king-range is a number that varies. min-king-range is 64.
+
+a room can be bkreachable or bkblocked. a room is usually bkblocked.
+
+to decide which number is current-king-range:
+	now all rooms are unchecked;
+	now all rooms are bkblocked;
+	find-available-rooms location of black king;
+	decide on number of bkreachable rooms;
+
+to find-available-rooms (rm - a room):
+	if rm is checked, continue the action;
+	now rm is checked;
+	repeat with q running through directions:
+		let qrm be the room q of rm;
+		if qrm is lsb-reachable or qrm is dsb-reachable or qrm is adjacent to location of white king:
+			now qrm is bkblocked;
+			now qrm is checked;
+			next;
+		now qrm is bkreachable;
+		find-available-rooms qrm;
 
 bishops-together is a truth state that varies.
 
