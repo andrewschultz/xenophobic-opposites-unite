@@ -113,22 +113,25 @@ chapter game specific stuff
 sent-yet is a truth state that varies.
 
 rule for printing the locale description when sent-yet is false (this is the recap start choice rule):
-	say "You need to deal with your two bishops who dislike each other. But how? You have some opportunity to marshal your forces, but you're not sure what would be best.";
+	say "You need to get your two bishops in line. They squabble a lot during peacetime, but it's war, now, and everyone needs to be on the same page. Easy enough when you had a full army, but they're the only ones left.[paragraph break]But how? Separate them completely? Force them together? You suspect there will be no huge ramifications for not starting perfectly.";
 	say "[line break] 1. You! To your corners! A1 and H1[one of]! The farther apart, the better! Further, whatever. We're at war here. Grammar be hanged[or][stopping]!";
-	say " 2. You're too powerful to be sent to the corners, so B1 and G1 it is! But next time I'll be harsher!";
+	say " 2. You're too powerful and grown-up to be sent to the corners, so B1 and G1 it is! But next time I'll be harsher!";
 	say " 3. You will go back to your original squares on C1 and F1, and you will go back to your original squares now!";
-	say " 4. Okay, team. We're a team, and we stick together. You two, in front of me at e2 and d2.";
-	say " 5. Think about what to do.";
+	say " 4. Okay, team. We're a team, and teams stick together. You two, in front of me at e2 and d2.";
+	say " 5. Think [if think-five is true]again [end if]about what to do before giving orders.";
 
 numguessing is an action applying to one number.
 
 understand "[number]" as numguessing when sent-yet is false.
+
+think-five is a truth state that varies.
 
 carry out numguessing:
 	if the number understood < 0 and the number understood > 5:
 		say "You need to choose 1-5 or 0 to recap your choices." instead;
 	if the number understood is 5:
 		say "You remember something vague from all your tactical training. The bishops need to get in close around the enemy king, then you need to push him into the corner. So what's the best way to zigzag across the board efficiently?";
+		now think-five is true;
 		continue the action;
 	if the number understood is 0:
 		follow the recap start choice rule instead;
