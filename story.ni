@@ -70,11 +70,43 @@ when play begins:
 	process the check-skip-intro rule;
 	now right hand status line is "[moves-left] moves to go";
 	if the rule succeeded, continue the action;
+	say "You forgot the details of the religious schism in your country, but it was serious to divide it in roughly half. It's been that way, which may be a good thing, since it avoids any sort of civil war. I mean, there's tension, but if one sect got tons more powerful than the other, they might get violent. It seems to happen in a lot of countries, this balance of power.";
+	wfak;
+	say "You have to admit, you encourage it. It keeps the peasants and noblemen busy in silly squabbles when you want to run the country, and you're a half-decent politician preaching general unity when needed. And the bishops--well, they kept pretty good control over their fiefdoms even if the balance between 'God and King' wasn't in proportions you'd hoped for.";
+	wfak;
+	say "When that other country declared war on you, too, you unified the country well. Both bishops, the light- and dark-squared ones, knew what to do. True, the light-squared bishop was friends with the LSB from the other country, and same for the respective DSB's. But war was war.";
+	wfak;
+	say "And it was brutal. Castles went up in flames. The queens died quickly. And ... well, somewhere, one of your knights and an opposing bishop killed each other off. Your two bishops ... well, they actually cooperated pretty well! They made just enough trouble to take a pawn without retribution. But other pairs of opposing pawns died off.";
+	wfak;
+	say "Then an enemy knight sacrificed itself for a pawn that was about to super-charge, and the same for an enemy bishop. Only you, your two bishops, and the opposing king were left. Dang it!";
+	wfak;
+	say "You knew the basic stuff, gaffling an enemy king with the help of your queen, or a rook. But with two bishops? That was trickier. Even though some combat egghead said they were worth six points combined, with a rook only five. Whatever.";
+	wfak;
+	say "It's time for a pep talk. The bishops look a bit exasperated at the thought. But you ARE the king. [i][b]NOTE:[r][i] this introduction went on long enough. You can see the pep talk with [b]PEP[r][i], if you're so inclined.[close bracket][r]";
+	wfak;
 
 when play begins:
 	now use-custom-screenread is true;
 	say "[this-game] renders a chessboard in text maps for room descriptions. This will play very poorly with screen readers. In addition, you may prefer a text description to a chessboard as a matter of taste. Do you wish to activate text/screenreader mode?";
 	if debug-state is false, ask-screenread;
+
+chapter peping
+
+peping is an action out of world.
+
+understand the command "pep" as something new.
+
+understand "pep" as peping.
+
+carry out peping:
+	say "A brief summary of your pep talk:";
+	say "[line break]'Now I know we have our differences, but guys, these differences, they're what make us great! We couldn't win with two light-squared bishops or with two dark-squared bishops.  Now I know both you guys have those grapevines for turning over peasants who don't tithe. Why, their neighbors are glad to rat out people of any denomination! That's impressive, that's class, that's power! We need to bring that cooperation to something bigger than tithe cheats. If we put our minds to it, there's nothing we can't do!'";
+	say "[line break]The two bishops would've groaned a bit at that one, but they're no dummies. They know 'something to do' would expand their influence. And you'd look like a fool if things failed.";
+	say "[line break]'Okay. We know who's got the dark squares locked down. We know who's got the light squares locked down. And we trust each other not to step on the other's squares. And you know what? You guys together are worth more than a rook! Heck, those eggheads who say a rook is worth more than one of you never heard you guys discuss real issues. Rooks just sit there full of treasure and crumble slowly. I mean no offense we need them and all but geez. Plus they do sit back in battle and let other pieces get killed first. And they're flippin['] TERRIBLE at blockading pawns! You guys, it doesn't affect your movement one bit.'";
+	say "[line break]Here you receive a bit of fawning about how they are not as great alone or together as your queen, God rest her soul. You raise a hand. 'What's important now is the people we got left. She wouldn't want you, or me, to worry about her. Plus all those ceremonies you performed, she's gotta have a luxury suite in heaven for that. You guys totally did me a solid there. And I don't know the details of big philosophical questions, but I know this. If I had to go to war, I'd go to war with you guys, and not your counterparts who got killed out there.'";
+	say "[line break]The bishops are smart but not immune to flattery. They nod wisely, but you suspect they are really just looking ahead to the possible increased influence and income if, IF, you get things right, here. There's an awkward silence.";
+	say "[line break]'LET'S DO THIS, TEAM!'";
+	the rule succeeds;
 
 chapter game specific stuff
 
