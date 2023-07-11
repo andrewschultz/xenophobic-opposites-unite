@@ -36,13 +36,25 @@ include Xenophobic Opposites Unite Tests by Andrew Schultz.
 
 chapter starting off
 
-the player is in e1.
+the player is in e1. description of the player is "You hope you do not look as ragged as you feel. I mean, yeah, battle raiments get worn and all after a long fight, but you're probably glad you have no mirror."
 
 to say that-bishop: say "He is giving a sidelong glance to [if item described is white light squared bishop]the black light squared bishop[else]the white light squared bishop[end if]. His robes are dusty and bloodied from a long fight. You wonder what their theological differences really are. It's a bit beyond you. You have a country to run"
 
 description of white light squared bishop is "[that-bishop]."
 
 description of white dark squared bishop is "[that-bishop]."
+
+found-scrap is a truth state that varies.
+
+check xing the player when found-scrap is false:
+	now found-scrap is true;
+	say "Oh hey! You search your robes and stuff and find some hastily scribbled notes. You can examine them, to get an idea how to push the enemy back, or you can drop it and lose it for good.";
+	now player has the scrap;
+
+check dropping scrap:
+	now scrap is off-stage;
+
+the scrap is a thing. description of scrap is "You've scribbled some notes on it. In it, you are standing to the left of both your bishops. The enemy king is two squares away from the one in the center. You wrote criss-cross arrows so that the bishops seem to be moving across each other's paths, but after they've both moved, the enemy is restricted further."
 
 the description of e1 is "[if sent-yet is false]The pep talk stopped your two bishops grumbling for the most part. But you still haven't quite made it clear who's boss.[else if screenread is true][text-board-description].[else][grid-printout][run paragraph on][end if]";
 
