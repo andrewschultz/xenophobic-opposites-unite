@@ -165,7 +165,6 @@ after piecemoving:
 	abide by the check-mates rule;
 
 this is the check-mates rule:
-	consider the check-bishops-together rule;
 	if number of black-available rooms is 0:
 		if lbk is dsb-reachable or lbk is lsb-reachable:
 			say "The enemy king rages. 'You?! I didn't think you were so smart! Well, if you were REALLY smart, and you'd focused on bigger-picture battle strategies, you'd have beaten me long before.'[paragraph break]What a sore loser! Unfortunately, you can't kill him then and there on the spot.[paragraph break]The citizens of the conquered country are even more in awe of your strategical prowess than if you'd just blown the enemy army away. You know things! You see details! You are not to be messed with.[paragraph break]That said, you're not big on making people knuckle under to you. Your experience figuring out the checkmate with two bishops has made you more thoughtful and considerate of abstract problems. You become a better ruler than you thought you could be.";
@@ -184,6 +183,9 @@ this is the check-mates rule:
 		if priority of rm > top-priority:
 			now currm is rm;
 			now top-priority is priority of rm;
+	consider the check-bishops-together rule;
+	consider the check-bishops-minimized rule;
+	consider the check-l-shape rule;
 	if black-king-check:
 		if not worthwhile-check:
 			say "Your bishops eye you warily. Of course, they will need to give check eventually to checkmate. But perhaps if you do so too soon, the king may slip out. They know well about having power over others. You don't show them all at once. You put them in a corner, make them think they're safe, then--pow![paragraph break]";
@@ -304,6 +306,17 @@ check thinking:
 
 bishops-together is a truth state that varies.
 
+got-l-shape is a truth state that varies.
+
+this is the check-l-shape rule:
+	if got-l-shape is true, continue the action;
+	unless difference-hash of white light squared bishop and white dark squared bishop is 10, continue the action;
+	unless difference-hash of black king and white king is 21, continue the action;
+	unless (difference-hash of black king and white dark squared bishop is 10) or (difference-hash of black king and white light squared bishop is 10), continue the action;
+	unless (difference-hash of black king and white dark squared bishop is 20) or (difference-hash of black king and white light squared bishop is 20), continue the action;
+	unless (difference-hash of white king and white dark squared bishop is 10) or (difference-hash of white king and white light squared bishop is 10), continue the action;
+	say "Everyone's connected in an L-shape. The black king curses his luck--he can't bop the bishop nearby, and he has to retreat! You smirk a bit."
+
 this is the check-bishops-together rule:
 	if bishops-together is true, continue the action;
 	if difference-hash of white light squared bishop and white dark squared bishop is 10:
@@ -313,6 +326,16 @@ this is the check-bishops-together rule:
 		say "Your two bishops don't feel great together, but hey, you're the one giving the orders here. The enemy king looks a bit afraid of them.";
 		now bishops-together is true;
 		continue the action;
+
+this is the check-bishops-minimized rule:
+	let ckr be current-king-range;
+	if ever-min-king-range is false:
+		if ckr < min-king-range:
+			if min-king-range < 64, say "You feel you've narrowed down the enemy king's options a bit[one of][or], more than before[stopping].";
+			now min-king-range is ckr;
+			if ckr is 2:
+				now ever-min-king-range is true;
+				say "You give the bishops the thumbs-up. You've trapped the enemy king as well as you can without stalemate! Now to complete the job!";
 
 to decide which number is difference-hash of (p1 - a person) and (p2 - a person):
 	let dx be (xval of location of p1) - (xval of location of p2);
