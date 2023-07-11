@@ -405,8 +405,57 @@ to decide whether attacks-bishop of (rm - a room):
 		if attacks-bishop of qrm, yes;
 	no;
 
-every turn:
-	if bishop-vulnerable, say "The enemy king can capture a bishop.";
+volume meta verbs
+
+chapter abouting
+
+abouting is an action out of world.
+
+understand the command "about" as something new.
+
+understand "about" as abouting.
+
+carry out abouting:
+	say "[this-game] was written for ParserComp 2023. It will probably be my final chess game. It features a relatively classic chess endgame, the two-bishop mate. Hopefully with hints for non-chessplayers.";
+	say "[line break]Originally I had planned to have a knight and bishop mate, but I realized that if the programming drove me up the wall, and the solving was tricky for me, it would be pointless and painful for the average player. So you dodged a bullet there.";
+	say "[line break]My other chess games are (placing pieces on the right squares) Fivebyfivia, Fourbyfouria, and (classic endgame puzzles) You Won't Get Her Back and Zero Chance of Recovery.";
+	the rule succeeds;
+
+chapter creditsing
+
+creditsing is an action out of world.
+
+understand the command "credits" as something new.
+
+understand "credits" as creditsing.
+
+carry out creditsing:
+	say "Thanks to all the YouTubers and endgame book writers who did stuff about the two bishops. It's something I remembered and forgot off and on. Thanks, too, to those who also went with bishop and knight, which showed me how alarmingly difficult it was. I was probably inspired by Lautic's BN endgame book on chessable.com to try something less ambitious for a game.";
+	say "[line break]Thanks to faf and Olaf Nowacki for testing. I didn't give them much time. But they found some really, really useful stuff.";
+	say "[line break]Thanks to Adam Sommerfield for creating ParserComp and fos1 and Christopher Merriner and fos for keeping it going.";
+	the rule succeeds;
+
+chapter verbsing
+
+verbsing is an action out of world.
+
+understand the command "verbs" as something new.
+
+understand "verbs" as verbsing.
+
+carry out verbsing:
+	say "Making moves is the main command. You can just type a square on the board, and the parser will try to move a piece there. It tries your king first, if it's legal, then it tries a bishop.";
+	say "[line break]You can also type the square you wish to go to, or you can use algebraic description e.g. Ke7 tries to move the king to e7. Bd5 tries to move the king to d5. And so forth.";
+	say "Meta-commands:[line break]";
+	say "[b]PEP[r] gives your pep talk.";
+	say "[b]M[r] or [b]MOVES[r] shows all your moves.";
+	say "[b]THINK[r] may provide hints how to get through.";
+	say "[b]ABOUT[r] and [b]CREDITS[r] give information about [this-game].";
+	if found-scrap is false:
+		say "You didn't [b]X ME[r] yet.";
+	else if scrap is not off-stage:
+		say "You can examine your scrap paper for basic strategy.";
+	the rule succeeds;
 
 volume parser nonsense
 
