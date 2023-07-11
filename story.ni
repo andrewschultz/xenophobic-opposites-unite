@@ -153,7 +153,8 @@ carry out numguessing:
 	now sent-yet is true;
 	move the player to e1;
 	if screenread is false:
-		say "[i][b]NOTE[r][i]: the game defaults to showing a text board, but you may wish to put the board in the header. You can do this with [b]HDR ##[r][i], where ## is a number from 1 to 32. [b]HDR 0[r][i] gives all the details, but I recommend [b]HDR 24[r][i].[close bracket][r]"
+		say "[bracket][i][b]NOTE[r][i]: the game defaults to showing a text board, but you may wish to put the board in the header. You can do this with [b]HDR ##[r][i], where ## is a number from 1 to 32. [b]HDR 0[r][i] gives all the details, but I recommend [b]HDR 24[r][i] or [b]HDR 28[r][i].[close bracket][r]";
+	say "[paragraph break][bracket][i][b]NOTE:[r][i] you can see the pep talk you gave with [b]PEP[r][i]. I've already hit you with enough of a text wall.[close bracket]"
 
 to say text-board-description:
 	say "Here at [location of player], you can see your light-squared bishop at [llsb] and your dark-squared bishop at [ldsb]. The enemy king skulks at [location of black king]"
@@ -242,6 +243,7 @@ piecemoving is an action applying to one visible thing.
 understand "[any room]" as piecemoving.
 
 check piecemoving:
+	if number of people in noun is 1, say "But [if location of player is noun]you are[else][random person in noun] is[end if] already at [noun]!" instead;
 	if directed-piece is 1:
 		if noun is not king-reachable:
 			say "That's not a legal square to move to." instead;
@@ -392,7 +394,6 @@ to decide whether bishop-vulnerable:
 	no;
 
 to decide whether attacks-bishop of (rm - a room):
-	say "Checking [rm].";
 	if rm is llsb or rm is ldsb, yes;
 	now rm is checked;
 	repeat with q running through directions:
@@ -465,7 +466,7 @@ after reading a command:
 	now directed-piece is 0;
 	if sent-yet is false:
 		unless the player's command matches the regular expression "^<0-9>+$":
-			say "You need to enter 1-5.";
+			say "You need to enter 1-4 to choose one of the starting positions above, or 5 to reflect some more.";
 			reject the player's command;
 	if the player's command matches the regular expression "<bk><a-z><0-9>":
 		if character number 1 in the player's command is "k":
@@ -555,9 +556,8 @@ definition: a room (called sq) is dsb-reachable:
 volume parser stuff
 
 rule for printing a parser error (this is the general info error rule):
-	say "Sorry, I couldn't parse that. Commands never need to be more than three letters long, and there are only limited squares per move. In this case, you can ";
+	say "Sorry, I couldn't parse that. Commands never need to be more than three letters long, and there are only limited squares per move.";
 	process the print-legal-moves rule;
-	say "Note that not specifying who moves to a square has me try the king first, then a bishop, if possible.[paragraph break]Also, a more comprehensive list of commands is at [verb-say].";
 	abide by the descriptive-warn rule;
 	the rule succeeds;
 
@@ -574,3 +574,4 @@ this is the print-legal-moves rule:
 	else:
 		say ". Your dark-squared bishop can move to [list of dsb-reachable rooms]";
 	say ".";
+	say "Note that not specifying who moves to a square has the parser try the king first, then a bishop, if possible. You can specify who moves where with Ka3 or Bd3, for example. (Case-insensitive.) You can also use compass directions to move your king, north being up a rank and west moving left a file.[paragraph break]Also, a more comprehensive list of commands is at [verb-say].";
