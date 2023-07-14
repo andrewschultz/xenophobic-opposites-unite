@@ -1,0 +1,9 @@
+# test # 1 bishops at corners
+#start1,e1,h1,a1,e8,be5,kd7,bd5,ke7,kf2,kd7,kf3,ke7,kf4,kd7,kf5,ke7,bc6,kf7,bf6,kf8,kg6,kg8,be7,kh8,bd7,kg8,be6,kh8,bf6
+#start2,e1,b1,g1,e8,be4,kd7,bd4,kd6,ke2,ke6,ke3,kd6,kf4,ke6,be5,kd7,kf5,ke7,bc6,kf7,bf6,kf8,kg6,kg8,be7,kh8,bd6,kg8,bd5,kh8,be5
+#start3,e1,f1,c1,e8,bf4,kd7,bg2,ke6,be4,kf6,kf2,ke6,kg3,kf6,kg4,ke6,kg5,kd7,kf6,kd8,ke6,ke8,bc7,kf8,kf6,ke8,bc6,kf8,bd6,kg8,kg6,kh8,bd7,kg8,be6,kh8,be5
+#start4,e1,e2,d2,e8,kf2,kd7,ke3,kd6,ke4,kc5,bc3,kd6,bb4,ke6,bc4,kf6,kf4,kg6,bd6,kf6,bd5,kg6,be7,kg7,kg5,kh7,bf8,kh8,kf6,kh7,kf7,kh8,bg7,kh7,be4
+#side1,e1,d6,e6,e8,kd2,kd8,kc3,ke8,kc4,kd8,kc5,ke8,kc6,kd8,bf7,kc8,be7,kb8,kb6,kc8,be6,kb8,bd6,ka8,bd5
+side2,c6,d6,e6,e8,bd5,kd8,bf7,kc8,be7,kb8,kb6,kc8,be6,kb8,bd6,ka8,bd5
+;
+#NOTE "\Program Files\ImageMagick-7.1.1-Q16-HDRI"\magick -delay 25 -loop 0 side2*.png end-2.gif = how to create a gif, delay = x 100ths of a second
