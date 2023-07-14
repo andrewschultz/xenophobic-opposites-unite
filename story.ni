@@ -44,17 +44,22 @@ description of white light squared bishop is "[that-bishop]."
 
 description of white dark squared bishop is "[that-bishop]."
 
+understand "x [any carried thing]" as examining.
+understand "examine [any carried thing]" as examining.
+
 found-scrap is a truth state that varies.
 
 check xing the player when found-scrap is false:
 	now found-scrap is true;
-	say "Oh hey! You search your robes and stuff and find some hastily scribbled notes. You can examine them, to get an idea how to push the enemy back, or you can drop it and lose it for good.";
-	now player has the scrap;
+	say "Oh hey! You search your robes and stuff and find some scrap paper notes. You can examine them, to get an idea how to push the enemy back, or you can drop it and lose it for good.";
+	now player has the scrap paper notes;
 
-check dropping scrap:
-	now scrap is off-stage;
+check dropping scrap paper notes:
+	now scrap paper notes are off-stage;
 
-the scrap is a thing. description of scrap is "You've scribbled some notes on it. In it, you are standing to the left of both your bishops. The enemy king is two squares away from the one in the center. You wrote criss-cross arrows so that the bishops seem to be moving across each other's paths, but after they've both moved, the enemy is restricted further."
+understand "note" and "scrap paper note" and "scrap/paper note" as scrap paper notes when player carries scrap paper notes.
+
+some scrap paper notes are a plural-named thing. description of scrap paper notes is "You've scribbled some notes on it. In it, you are standing to the left of both your bishops. The enemy king is two squares away from the one in the center. You wrote criss-cross arrows so that the bishops seem to be moving across each other's paths, but after they've both moved, the enemy is restricted further."
 
 the description of e1 is "[if sent-yet is false]The pep talk stopped your two bishops grumbling for the most part. But you still haven't quite made it clear who's boss.[else if screenread is true][text-board-description].[else][grid-printout][run paragraph on][end if]";
 
@@ -454,8 +459,8 @@ carry out verbsing:
 	say "[b]ABOUT[r] and [b]CREDITS[r] give information about [this-game].";
 	if found-scrap is false:
 		say "You didn't [b]X ME[r] yet.";
-	else if scrap is not off-stage:
-		say "You can examine your scrap paper for basic strategy.";
+	else if scrap paper notes are not off-stage:
+		say "You can examine your scrap paper notes for basic strategy.";
 	the rule succeeds;
 
 volume parser nonsense
