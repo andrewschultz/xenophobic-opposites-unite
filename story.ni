@@ -218,8 +218,8 @@ my-moves	bishop-blather
 to decide whether worthwhile-check:
 	if number of king-reachable rooms is not 1, no;
 	let rm be a random king-reachable room;
-	if priority of rm is priority of lbk - 1, no;
-	yes;
+	if priority of rm <= priority of lbk, yes; [maybe less than sign could be flagged too e.g. d8 to e8 but err on the side of caution]
+	no
 
 to decide whether black-king-check:
 	if lbk is lsb-reachable or lbk is dsb-reachable, yes;
