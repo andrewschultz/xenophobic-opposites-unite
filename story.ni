@@ -417,6 +417,7 @@ chapter abouting
 
 abouting is an action out of world.
 
+understand the command "a" as something new.
 understand the command "about" as something new.
 
 understand "about" as abouting.
@@ -431,6 +432,9 @@ chapter creditsing
 
 creditsing is an action out of world.
 
+understand the command "c" as something new.
+understand the command "cred" as something new.
+understand the command "credit" as something new.
 understand the command "credits" as something new.
 
 understand "credits" as creditsing.
@@ -445,6 +449,8 @@ chapter verbsing
 
 verbsing is an action out of world.
 
+understand the command "v" as something new.
+understand the command "verb" as something new.
 understand the command "verbs" as something new.
 
 understand "verbs" as verbsing.
